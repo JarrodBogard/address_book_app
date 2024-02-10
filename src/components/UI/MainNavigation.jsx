@@ -13,6 +13,7 @@ const MainNavigation = () => {
         <Link to="/">Logo</Link>
         <ul
           style={{
+            display: "flex",
             listStyle: "none",
             padding: 0,
             margin: 0,
@@ -20,7 +21,12 @@ const MainNavigation = () => {
           }}
         >
           <li>
-            <Link to="/">About</Link>
+            <Link style={{ marginRight: ".25rem" }} to="/">
+              About
+            </Link>
+          </li>
+          <li>
+            <Link to="/contacts">Contacts</Link>
           </li>
         </ul>
       </div>
