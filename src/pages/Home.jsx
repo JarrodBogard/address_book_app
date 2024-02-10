@@ -1,21 +1,38 @@
 import { useDispatch } from "react-redux";
 
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useFetcher } from "react-router-dom";
 
 import { Card, ListGroup, Button } from "react-bootstrap";
 
 import { bookActions } from "../store/book-slice";
 
 const HomePage = () => {
+  const { submit } = useFetcher();
   const dispatch = useDispatch();
   const data = useLoaderData();
   //   props -> address{street:, suite:, city:, zipcode:, geo: {lat: , lng: }}
   //     props -> company{name:, catchPhrase:, bs:}
   //        props -> email:, id:, name:, phone:, username:, website:
 
-  console.log(data);
-
   dispatch(bookActions.getContacts(data));
+
+  const addContactHandler = (item) => {
+    console.log(item);
+    const formatData = {
+      ...item,
+      address: item.address.street,
+      suite: item.address.suite,
+      city: item.address.city,
+      zipcode: item.address.zipcode,
+      lat: item.address.geo.lat,
+      lng: item.address.geo.lng,
+      company: item.company.name,
+      bs: item.company.bs,
+      catchPhrase: item.company.catchPhrase,
+    };
+
+    submit(formatData, { method: "POST", action: "/add" });
+  };
 
   const contactsData = (
     <ul className="row gap-4 align-items-center">
@@ -51,6 +68,7 @@ const HomePage = () => {
             variant="dark"
             size="sm"
             className="position-absolute top-0 end-0 m-2"
+            onClick={() => addContactHandler(item)}
           >
             Add
           </Button>
