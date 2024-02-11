@@ -1,24 +1,39 @@
+// import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 
 import { useLoaderData, useFetcher } from "react-router-dom";
-
 import { Card, ListGroup, Button } from "react-bootstrap";
 
 import { bookActions } from "../store/book-slice";
+// import { fetchInitData, sendContactData } from "../store/book-actions";
+
+// let isInitial = true;
 
 const HomePage = () => {
   const { submit } = useFetcher();
   const dispatch = useDispatch();
   const data = useLoaderData();
-  //   props -> address{street:, suite:, city:, zipcode:, geo: {lat: , lng: }}
-  //     props -> company{name:, catchPhrase:, bs:}
-  //        props -> email:, id:, name:, phone:, username:, website:
+  // const data = useSelector((state) => state.book.data);
+  // const contacts = useSelector((state) => state.book.contacts);
+  // const book = useSelector((state) => state.book);
 
-  dispatch(bookActions.getContacts(data));
+  // useEffect(() => {
+  //   dispatch(fetchInitData());
+  // }, [dispatch]);
+
+  // useEffect(() => {
+  //   if (isInitial) {
+  //     isInitial = false;
+  //     return;
+  //   }
+  //   if (book.changed) {
+  //     dispatch(sendContactData(contacts));
+  //   }
+  // }, [contacts, dispatch]);
 
   const addContactHandler = (item) => {
-    console.log(item);
-    const formatData = {
+    const contact = {
       ...item,
       address: item.address.street,
       suite: item.address.suite,
@@ -31,7 +46,8 @@ const HomePage = () => {
       catchPhrase: item.company.catchPhrase,
     };
 
-    submit(formatData, { method: "POST", action: "/add" });
+    dispatch(bookActions.addContact(item));
+    submit(contact, { method: "POST", action: "/add" });
   };
 
   const contactsData = (
