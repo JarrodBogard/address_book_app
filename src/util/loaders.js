@@ -23,6 +23,7 @@ export const savedContactsLoader = async () => {
   const contacts = [];
 
   for (const key in data) {
+    // reformatting to correct data object format needed by components //
     contacts.push({
       id: Number(data[key].id),
       name: data[key].name,

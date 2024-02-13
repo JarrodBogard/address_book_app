@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { Nav } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 const MainNavigation = () => {
+  const count = useSelector((state) => state.book.totalContacts);
+
   return (
     <nav
       style={{
@@ -26,7 +30,7 @@ const MainNavigation = () => {
             </Link>
           </li>
           <li>
-            <Link to="/contacts">Contacts</Link>
+            <Link to="/contacts">Contacts: {count}</Link>
           </li>
         </ul>
       </div>
@@ -42,3 +46,46 @@ const MainNavigation = () => {
 };
 
 export default MainNavigation;
+
+{
+  /* <Nav
+  activeKey="/"
+  // onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
+>
+  <Nav.Item>
+    <Nav.Link href="/">
+      <Link to="/">Logo</Link>
+    </Nav.Link>
+  </Nav.Item>
+  <Nav.Item>
+    <Nav.Link eventKey="link-1">
+      <Link to="/contacts">Contacts</Link>
+    </Nav.Link>
+  </Nav.Item>
+  <Nav.Item>
+    <Nav.Link eventKey="link-2">
+      <Link to="/login">Login</Link>
+    </Nav.Link>
+  </Nav.Item>
+</Nav>; */
+}
+{
+  /* <Navbar variant="dark" bg="dark" expand="lg">
+<Container fluid>
+  <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+  <Navbar.Toggle aria-controls="navbar-dark-example" />
+  <Navbar.Collapse id="navbar-dark-example">
+    <Nav>
+      <NavDropdown
+        id="nav-dropdown-dark-example"
+        title="Dropdown"
+        menuVariant="dark"
+      >
+        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+
+      </NavDropdown>
+    </Nav>
+  </Navbar.Collapse>
+</Container>
+</Navbar> */
+}

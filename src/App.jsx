@@ -1,13 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./util/http";
 
 import RootLayout from "./components/layouts/Root";
 
 import HomePage from "./pages/Home";
-// without loaders/actions //
-// import ContactsPage from "./pages/Contacts";
-
-import { addContactsAction } from "./util/actions";
-import { getContactsLoader, savedContactsLoader } from "./util/loaders";
+import ContactsPage from "./pages/Contacts";
 
 import "./index.css";
 
@@ -17,25 +15,27 @@ function App() {
       path: "/",
       element: <RootLayout />,
       children: [
-        { index: true, element: <HomePage />, loader: getContactsLoader },
+        {
+          index: true,
+          element: <HomePage />,
+        },
         {
           path: "contacts",
           children: [
             {
               index: true,
-              // without loaders/actions //
-              // element: <ContactsPage />,
-              // with loaders/actions //
-              element: <HomePage />,
-              loader: savedContactsLoader,
+              element: <ContactsPage />,
             },
           ],
         },
-        { path: "add", action: addContactsAction },
       ],
     },
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;
